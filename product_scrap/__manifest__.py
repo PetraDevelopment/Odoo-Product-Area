@@ -53,7 +53,7 @@
     }, 
 
      'license': 'AGPL-3',
-     'price':100,
+     'price':300,
       'currency':'USD',       
        
         
