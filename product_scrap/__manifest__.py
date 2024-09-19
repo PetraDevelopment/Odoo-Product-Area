@@ -3,11 +3,10 @@
     'summary':'Product Scrap',
     'depends': ['base', 'product','sale','stock','web_tour','purchase','web'],
     'category':'Inventoy',
-       'author': 'www.t-petra.com',
     'website': 'www.t-petra.com',
-
-    'maintainer': 'Petra Software',
+    'author':'Petra Software',
     'company': 'Petra Software',
+    'maintainer': 'Petra Software',
     'images': ['static/description/banner.png'],
     'data':[
         # 'views/list/list_renderer.xml',
