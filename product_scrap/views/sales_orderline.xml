@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="extension_orderline" model="ir.ui.view">
+        <field name="name">extension.orderline</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="after">
+                <button name="calculate_product_qty_sales"  string="Calculate M" type="object" class="btn"  icon="fa-pencil-square-o"  attrs="{'invisible': [('carton_text', '!=', 'كرتونة')]}"/>
+                <field name="blank_field" readonly='True'/>
+
+                <field name="uom_per_unit" string="Primary UOM"/>
+                <field name="carton_text"  readonly='True'/>
+
+                   
+                <field name="total" string="Second UOM"/>
+                <field name="tiles_text" readonly='True'/>
+                <button name="calculate_uom_and_total_sales"  string="Calculate Box" type="object" class="btn"  icon="fa-pencil-square-o" attrs="{'invisible': [('carton_text', '!=', 'كرتونة')]}"/>
+                <field name="blank_field" readonly='True'/>
+
+                   
+            </xpath>
+        </field>
+    </record>
+</odoo>

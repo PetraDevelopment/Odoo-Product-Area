@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Scrap</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        h2 {
+            text-align: center;
+        }
+        .message {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .responsive-img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: auto;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .gray-square {
+            width: 800px; 
+            height: 400px; 
+            background-color: 	#E8E8E8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media screen and (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            .image-container {
+                flex-direction: column;
+            }
+            .gray-square {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Product Scrap</h1>
+        <h2>Description</h2>
+        <div class="message">
+            <h2>How to calculate Product Area</h2>
+            <h4>-You can calculate it through the setting and check in units of measure.
+                <br/>
+                Then you must check in variants and click on attributes.
+            </h4>
+        </div>
+        <img src="assets/img1.png" alt="Image 1" class="responsive-img" style="width: 100%;">
+        <img src="assets/img2.png" alt="Image 2" class="responsive-img" style="width: 100%;">
+        
+        <div class="message">
+            <h2>Select radio size and write values like (0.50*0.20*12)</h2>
+            <h4>-(0.50*0.20 means area) (12 means number of product in the same box)</h4>
+        </div>
+        <div class="image-container">
+            <div class="gray-square">
+                <img src="assets/img3.png" alt="Image 2" class="responsive-img" style="width: 100%;">
+            </div>
+        </div>
+
+        <div class="message">
+            <h2>Enter new product and select the units of measure in meters</h2>
+        </div>
+        <div class="image-container">
+            <div class="gray-square">
+                <img src="assets/img4.png" alt="Image 2" class="responsive-img" style="width: 100%;">
+            </div>
+        </div>
+        
+        <div class="message">
+            <h2>Then open attributes & variants and select values you need.</h2>
+        </div>
+        <div class="image-container">
+            <div class="gray-square">
+                <img src="assets/img5.png" alt="Image 2" class="responsive-img" style="width: 100%;">
+            </div>
+        </div>
+
+        <div class="message">
+            <h2>When you purchase or sales you must enter quantity by meters and press on calculate M to calculate number of units and boxes automatically.</h2>
+        </div>
+        <div class="image-container">
+            <div class="gray-square">
+                <img src="assets/img6.png" alt="Image 2" class="responsive-img" style="width: 100%;">
+            </div>
+        </div>
+
+        <div class="message">
+            <h2>If you want to calculate meters you should entre number of units and boxes and press on calculate box to calculate number of meters automatically.</h2>
+        </div>
+        <div class="image-container">
+            <div class="gray-square">
+                <img src="assets/img7.png" alt="Image 2" class="responsive-img" style="width: 100%;">
+            </div>
+        </div>
+
+        <div class="message">
+            <h2>Calculate Product Scrap</h2>
+            <h4>-If you want to calculate scrap you should select scrap through operations in inventory.</h4>
+        </div>
+        <div class="image-container">
+            <div class="gray-square">
+                <img src="assets/img8.png" alt="Image 2" class="responsive-img" style="width: 100%;">
+            </div>
+        </div>
+
+        <div class="message">
+            <h2>Then you must enter product, number of carton and number of tiles to calculate quantity by meters automatically.</h2>
+        </div>
+        <div class="image-container">
+            <div class="gray-square">
+                <img src="assets/img9.png" alt="Image 2" class="responsive-img" style="width: 100%;">
+            </div>
+        </div>
+    
+        
+    </div>
+</body>
+</html>
