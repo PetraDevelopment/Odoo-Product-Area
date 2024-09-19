@@ -23,6 +23,6 @@
     'company': 'Petra Software',
     'maintainer': 'Petra Software',
     'images': ['static/description/banner.png'],
-    'price':100,
+    'price':300,
       'currency':'USD',
     }
