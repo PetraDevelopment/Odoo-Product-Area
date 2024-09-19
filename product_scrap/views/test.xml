@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="ListView.buttons">
+        <t t-call="product_scrap.order_line" />
+    </t>
+</templates>

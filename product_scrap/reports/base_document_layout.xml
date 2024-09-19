@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo >
+
+<template id="einv_external_layout_boxed"    inherit_id="web.external_layout_boxed">
+
+<xpath expr="//div[contains(@t-attf-class,'footer')]" position="replace" >
+
+    <div t-attf-class="footer o_boxed_footer o_company_#{company.id}_layout">
+                <div class="text-center">
+                    <div t-field="company.report_footer"/>
+                    <div t-if="report_type == 'pdf'">
+                        صفحة: <span class="page"/> / <span class="topage"/>
+                    </div>
+                    <div t-if="report_type == 'pdf' and display_name_in_footer" class="text-muted">
+                        <span t-field="o.name"/>
+                    </div>
+                </div>
+            </div>
+</xpath>
+</template>
+
+
+<template id="einv_external_layout_standard"    inherit_id="web.external_layout_standard">
+<xpath expr="//div[contains(@t-attf-class,'footer')]" position="replace" >
+
+    <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+                <div class="text-center" style="border-top: 1px solid black;">
+                    <ul class="list-inline mb4">
+                    <div t-field="company.report_footer"/>
+                </ul>
+
+                <div t-if="report_type == 'pdf'" class="text-muted">
+                    صفحة: <span class="page"/> / <span class="topage"/>
+                </div>
+                <div t-if="report_type == 'pdf' and display_name_in_footer" class="text-muted">
+                    <span t-field="o.name"/>
+                </div>
+            </div>
+        </div>
+        </xpath>
+</template>
+
+<!-- heeeeeeeeeedrre -->
+<!-- <template id="einv_external_layout_bold"    inherit_id="web.external_layout_bold">
+    <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+                <div class="text-center" style="border-top: 1px solid black;">
+                    <ul class="list-inline mb4">
+                    <div t-field="company.report_footer"/>
+                </ul>
+
+                <div t-if="report_type == 'pdf'" class="text-muted">
+                    صفحة: <span class="page"/> / <span class="topage"/>
+                </div>
+                <div t-if="report_type == 'pdf' and display_name_in_footer" class="text-muted">
+                    <span t-field="o.name"/>
+                </div>
+            </div>
+        </div>
+</template> -->
+
+
+<template id="einv_external_layout_striped"    inherit_id="web.external_layout_striped">
+<xpath expr="//div[contains(@t-attf-class,'footer')]" position="replace" >
+
+     <div t-attf-class="o_company_#{company.id}_layout footer o_background_footer">
+            <div class="text-center">
+                <ul class="list-inline">
+                    <div t-field="company.report_footer"/>
+                </ul>
+                <div t-if="report_type == 'pdf'" class="text-muted">
+                    صفحة:
+                    <span class="page"/>
+                    من
+                    <span class="topage"/>
+                </div>
+                <div t-if="report_type == 'pdf' and display_name_in_footer" class="text-muted">
+                    <span t-field="o.name"/>
+                </div>
+            </div>
+        </div>
+        </xpath>
+
+</template>
+
+
+
+
+
+
+<!-- <template id="font_inherited" inherit_id="web.styles_company_report">
+    <xpath expr="//t[@t-set='font']" position="replace">
+
+        <t t-foreach="company_ids" t-as="company" t-translation="off">
+            <t t-set="forced_vat" t-value="False"/>
+            <t t-set="font" t-value="company.font or 'Tajawal'" />
+            <t t-set="primary" t-value="company.primary_color or 'black'" />
+            <t t-set="secondary" t-value="company.secondary_color or 'black'" />
+            <t t-set="layout" t-value="company.external_report_layout_id.key or 'web.external_layout_standard'" />
+                .o_company_<t t-esc='company.id'/>_layout {
+                font-family: <t t-esc="font" />;
+            <t t-if="layout == 'web.external_layout_striped'">
+                &amp;.o_report_layout_striped {
+                   strong {
+                        color: <t t-esc='secondary'/>;
+                    }
+                    h2 {
+                        color: <t t-esc='primary'/>;
+                    }
+                    thead tr th {
+                        color: <t t-esc='secondary'/>;
+                    }
+                }
+                .row > div > table,
+                div#total table {
+                    &amp;:first-child,
+                    &amp;:last-child,
+                    &amp;.o_subtotal,
+                    &amp;.o_total {
+                        strong {
+                            color: <t t-esc='primary'/>;
+                        }
+                    }
+                }
+            </t>
+            <t t-elif="layout == 'web.external_layout_boxed'">
+                &amp;.o_report_layout_boxed {
+                    #total strong {
+                        color: <t t-esc='primary'/>;
+                    }
+                    #informations strong {
+                        color: <t t-esc='secondary'/>;
+                    }
+                    h2 span {
+                        color: <t t-esc='primary'/>;
+                    }
+                    table {
+                        thead {
+                            tr th {
+                                color: <t t-esc='secondary'/>;
+                            }
+                        }
+                        tbody tr td {
+                            &amp;.o_line_section td {
+                                    background-color: rgba(<t t-esc='primary'/>, 0.7);
+                                }
+                            &amp;.is-subtotal,
+                                td.o_price_total {
+                                    background-color: rgba(<t t-esc='secondary'/>, 0.1);
+                                }
+                        }
+                    }
+                }
+                .row > div > table,
+                div#total table {
+                    tr {
+                        &amp;.o_total td {
+                            background-color: rgba(<t t-esc='primary'/>, 0.9);
+                        }
+                    }
+                }
+            </t>
+            <t t-elif="layout == 'web.external_layout_bold'" >
+                &amp;.o_clean_footer {
+                    border-top: 3px solid <t t-esc='secondary'/>;
+                    h4 {
+                        color: <t t-esc='secondary'/>;
+                    }
+                    .pagenumber {
+                        border: 3px solid <t t-esc='primary'/>;
+                        background-color: <t t-esc='secondary'/>;
+                    }
+                }
+                &amp;.o_report_layout_bold {
+                    h1, h2, h3 {
+                        color: <t t-esc='primary'/>;
+                    }
+                    strong {
+                        color: <t t-esc='secondary'/>;
+                    }
+                    table {
+                       thead {
+                           color: <t t-esc='secondary'/>;
+                           tr th {
+                                border-top: 3px solid <t t-esc='secondary'/> !important;
+                            }
+                        }
+                        tbody {
+                            tr:last-child td {
+                                border-bottom: 3px solid <t t-esc='secondary'/>;
+                            }
+                        }
+                    }
+                    #total {
+                        strong {
+                            color: <t t-esc='secondary'/>;
+                        }
+                    }
+                }
+            </t>
+            <t t-elif="layout == 'web.external_layout_standard'">
+                &amp;.o_report_layout_standard {
+                    h2 {
+                        color: <t t-esc='primary'/>;
+                    }
+                    #informations strong {
+                        color: <t t-esc='secondary'/>;
+                    }
+                    #total strong{
+                        color: <t t-esc='primary'/>;
+                    }
+                    table {
+                        thead {
+                            color: <t t-esc='secondary'/>;
+                        }
+                    }
+                }
+            </t>
+            }
+        </t>
+        </xpath>
+    </template> -->
+
+    <template id="inherit_styles_company_report" inherit_id="web.styles_company_report">
+    <xpath expr="//t[@t-set='font']" position="replace">
+        <t t-set="font" t-value="'Tajawal'"/>
+    </xpath>
+</template>
+
+
+</odoo>

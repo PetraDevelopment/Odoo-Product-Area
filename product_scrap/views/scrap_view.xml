@@ -1,0 +1,18 @@
+<odoo>
+    <record id="stock_stock_scrap_form_view_inherit" model="ir.ui.view">
+        <field name="name">stock.stock_scrap_form_view inherit</field>
+        <field name="model">stock.scrap</field>
+        <field name="inherit_id" ref="stock.stock_scrap_form_view"/>
+        <field name="arch" type="xml">
+                <xpath expr="//label[@for='scrap_qty']" position="before">
+                    <field name="numberofcarton" string='Number of Carton'/>
+                    <field name="numberoftiles" string='Number of Tile'/>
+                </xpath>
+                <xpath expr="//field[@name='product_uom_id']" position="replace">
+                    <field name="product_uom_id" groups="uom.group_uom" force_save="1" readonly="True"/>
+                </xpath>
+
+                
+        </field>
+    </record>
+</odoo>

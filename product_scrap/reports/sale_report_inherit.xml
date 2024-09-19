@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo >
+<template id="sale_report_inherit" inherit_id="sale.report_saleorder_document" >
+
+    <xpath expr="//h2[@class='mt-4']" position="replace">
+        <style>
+            body {
+                direction: rtl;
+            }
+        </style>
+         <span t-if="env.context.get('proforma', False) or is_pro_forma" style="font-size: 25px;">Pro-Forma Invoice # </span>
+                <span t-elif="doc.state in ['draft','sent']" style="font-size: 25px;"> عرض طلب # </span>
+                <span t-else="" style="font-size: 25px;">طلب # </span>
+                <span t-field="doc.name" style="font-size: 25px;"></span>
+                
+    </xpath>
+    
+    <xpath expr="//t[@t-if='doc.partner_shipping_id == doc.partner_invoice_id']" position="replace">
+                <t t-if="doc.partner_shipping_id == doc.partner_invoice_id
+                             and doc.partner_invoice_id != doc.partner_id
+                             or doc.partner_shipping_id != doc.partner_invoice_id">
+            <t t-set="information_block">
+                <strong>
+                    <t t-if="doc.partner_shipping_id == doc.partner_invoice_id">
+                       <strong> عنوان الفواتير والشحن:</strong>
+                    </t>
+                    <t t-else="">
+                        عنوان الفواتير:
+                    </t>
+                </strong>
+                <div t-field="doc.partner_invoice_id"
+                    t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                <t t-if="doc.partner_shipping_id != doc.partner_invoice_id">
+                    <strong>عنوان الشحن:</strong>
+                    <div t-field="doc.partner_shipping_id"
+                        t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                </t>
+            </t>
+        </t>
+    </xpath>
+
+<!-- 
+    <xpath expr="//div[@class='row mt-4 mb-4' and @id='informations']/div[last()]" position="replace">
+        <div class="col-auto col-3 mw-100 mb-2" style="float: left;">
+            
+            <strong>البائع:</strong>
+            <p t-field="doc.user_id"/>
+        </div>
+    </xpath> -->
+
+    <xpath expr="//div[@id='informations' and contains(@class, 'row') and contains(@class, 'mt-4') and contains(@class, 'mb-4')]" position="replace">
+        <style>
+            body {
+                direction: rtl;
+            }
+        </style>
+        <div class="row mt-4 mb-4" id="informations">
+                <div t-if="doc.client_order_ref" class="col-auto col-3 mw-100 mb-2" name="informations_reference">
+                    <strong>المرجع:</strong>
+                    <p class="m-0" t-field="doc.client_order_ref"/>
+                </div>
+                <!-- <div t-if="doc.date_order" class="col-auto col-3 mw-100 mb-2" name="informations_date">
+                    <strong t-if="doc.state in ['draft', 'sent']"></strong>
+                    <strong t-else=""></strong>
+                    <p class="m-0" />
+                </div> -->
+                <div t-if="doc.validity_date and doc.state in ['draft', 'sent']"
+                    class="col-auto col-3 mw-100 mb-2"
+                    name="expiration_date">
+                    <strong>انتهاء الصلاحية:</strong>
+                    <p class="m-0" t-field="doc.validity_date"/>
+                </div>
+                <!-- <div t-if="doc.user_id.name" class="col-auto col-3 mw-100 mb-2">
+                    <strong style="float: right;">البائع:</strong>
+                    <p class="m-0" t-field="doc.user_id"/>
+                </div> -->
+            </div>
+    </xpath>
+
+
+     <!-- <xpath expr="//div[@id='informations']/div[@name='informations_date']" position="replace">
+        <div style="direction: rtl; display: flex; align-items: center;">
+        <strong t-if="doc.state in ['draft', 'sent']" style="font-size: 20px; margin-right: 10px;">تاريخ الطلب</strong>
+        <strong t-else="" style="font-size: 20px; margin-right: 10px;" >تاريخ الفاتورة</strong>
+        <p t-field="doc.date_order" t-options='{"widget": "date"}' style="font-size: 20px;"/> 
+    </div>
+    </xpath> -->
+
+    <xpath expr="//table[@class='table table-sm o_main_table table-borderless mt-4']/thead/tr" position="replace">
+          <style>
+            body {
+                direction: rtl;
+            }
+        </style>
+        <th class="text-end" style="font-weight: normal ; font-size: 20px; " > الوصف </th>
+        <th class="text-end" style="font-weight: normal; font-size: 20px;"> الكمية </th>
+        <th class="text-end" style="font-weight: normal; font-size: 20px;">الوحده</th>
+        <th class="text-end" style="font-weight: normal; font-size: 20px;">  </th>
+        <th class="text-end" style="font-weight: normal; font-size: 20px;">  الوحده الفرعيه</th>
+        <th class="text-end" style="font-weight: normal; font-size: 20px;">  </th>
+        <th class="text-end" style="font-weight: normal; font-size: 20px;">سعر الوحده</th>
+        <th class="text-end" style="font-weight: normal; font-size: 20px;"> الضرائب</th>
+        <th name="th_subtotal" class="text-end" style="font-size: 20px;">
+            <span groups="account.group_show_line_subtotals_tax_excluded">المبلغ</span>
+            <span groups="account.group_show_line_subtotals_tax_included">المجموع</span>
+        </th>
+        
+    </xpath>
+    
+    <xpath expr="//table[@class='table table-sm o_main_table table-borderless mt-4']/tbody" position="replace">
+        <style>
+            body {
+                direction: rtl;
+            }
+        </style>
+        <tr t-foreach="lines_to_report" t-as="line">
+            <td t-if="not line.display_type" name="td_name" class="text-end">
+                <span t-field="line.name" style="font-size: 18px;"/>
+            </td>
+            <td t-if="not line.display_type" name="td_quantity" class="text-end">
+                <span t-field="line.product_uom" style="font-size:18;"/>
+                <span t-field="line.product_uom_qty" style="font-size: 18px;"/>
+            </td>
+            <td class="text-end">
+                <span t-esc="line.uom_per_unit" style="font-size: 18px;"/>
+            </td>
+            <td class="text-end">
+                <span t-esc="line.carton_text" style="font-size: 18px;"/>
+            </td>
+            <td class="text-end">
+                <span t-esc="line.total" style="font-size: 18px;"/>
+            </td>
+            <td class="text-end">
+                <span t-esc="line.tiles_text" style="font-size: 18px;"/>
+            </td>
+            <td t-if="not line.display_type" name="td_priceunit" class="text-end">
+                <span t-field="line.price_unit" style="font-size: 18px;"/>
+            </td>
+            <td t-if="display_discount" class="text-end">
+                <span t-field="line.discount" style="font-size: 18px;" />
+            </td>
+            <td name="td_taxes" class="text-end">
+                <span t-out="', '.join(map(lambda x: (x.description or x.name), line.tax_id))" style="font-size: 18px;"/>
+            </td>
+            <td t-if="not line.is_downpayment" name="td_subtotal" class="text-end o_price_total">
+                <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded" style="font-size: 18px;"/>
+                <span t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included" style="font-size: 18px;"/>
+            </td>
+            
+        </tr>
+    </xpath>
+    
+
+</template>
+
+
+
+<template id="custom_report_for_tax" inherit_id="account.document_tax_totals">
+
+    <xpath expr="//tr[@class='border-black o_total']" position="replace">
+        <style>
+            body {
+                direction: rtl;
+            }
+        </style>
+        <tr class="border-black o_custom_total">
+        <td style="font-size: 20px;">المجموع الكلي</td>
+            <td  class="text-end">
+                <span t-esc="tax_totals['formatted_amount_total_rounded']" t-if="'formatted_amount_total_rounded' in tax_totals" style="font-size: 20px;"/>
+                <span t-esc="tax_totals['formatted_amount_total']" t-else="" style="font-size: 20px;"/>
+            </td>
+        </tr>
+    </xpath>   
+
+
+     <xpath expr="//tr[@class='border-black o_subtotal']" position="replace">
+      <style>
+            body {
+                direction: rtl;
+            }
+        </style>
+        <tr class="border-black o_custom_subtotal">
+            <td style="font-size: 20px;">الاجمالى بدون ضريبه</td>
+                    <td class="text-end">
+                        <span
+                            t-att-class="oe_subtotal_footer_separator"
+                            t-esc="subtotal['formatted_amount']"
+                            style="font-size: 20px;"
+                        />
+            </td>
+        </tr>
+    </xpath>
+</template>
+
+            
+
+</odoo>

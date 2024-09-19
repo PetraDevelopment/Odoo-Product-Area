@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="extension_orderline" model="ir.ui.view">
+        <field name="name">extension.orderline</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="after">
+            <button name="calculate_product_qty_sales"  string="Calculate M" type="object" class="btn but-cal"  icon="fa-pencil-square-o" attrs="{'invisible': [('carton_text', '!=', 'كرتونة')]}" />
+            <field name="blank_field" readonly='True'/>
+                <field name="blank_field" readonly='True'/>
+
+            <field name="product_uom" invisible="1"/>
+            <field name="name" invisible="1"/>
+
+            <field name="tax_id" invisible="1"/>
+
+                <field name="uom_per_unit" string="Primary UOM"/>
+                <field name="carton_text"  readonly='True' style="width:15;"/>
+
+                   
+                <field name="total" string="Second UOM"/>
+                <field name="tiles_text" readonly='True' style="width:15px;"/>
+                
+                <button name="calculate_uom_and_total_sales"  string="Calculate Box" type="object" class="btn but-cal" attrs="{'invisible': [('carton_text', '!=', 'كرتونة')]}" icon="fa-pencil-square-o" />
+                <field name="blank_field" readonly='True'/>
+                <field name="blank_field" readonly='True'/>
+
+            </xpath>
+            <!-- <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom']" position="replace">
+                <field name="product_uom" style="width:35px; height:15px;"/>
+            </xpath>         -->
+        </field>
+    </record> 
+
+  
+</odoo>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+   <t t-name="owl_learn.ClickMe.RecordRow" t-inherit="web.ListRenderer.RecordRow" t-inherit-mode="extension" owl="1">
+       <xpath expr="//td[@class='o_list_record_selector']" position="after">
+           <td>
+               <button t-on-click="_onClick">click me</button>
+           </td>
+       </xpath>
+   </t>
+</templates>

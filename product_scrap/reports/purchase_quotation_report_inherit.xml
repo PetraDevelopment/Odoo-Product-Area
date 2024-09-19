@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo >
+<template id="purchase_quotation_report_inherit_xx" inherit_id="purchase.report_purchasequotation_document" >
+
+    <xpath expr="//t[@t-if='o.dest_address_id']" position="replace">
+        <style>
+            body {
+                direction: rtl;
+            }
+        </style>
+        <t t-if="o.dest_address_id">
+                <t t-set="information_block">
+                    <strong>عنوان الشحن:</strong>
+                    <div t-field="o.dest_address_id"
+                        t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}' name="purchase_shipping_address"/>
+                </t>
+            </t>
+                
+    </xpath>
+    
+    <xpath expr="//div[@class='page']//h2[@class='mt-4']" position="replace">
+
+        <style>
+            body {
+                direction: rtl;
+            }
+        </style>
+        <h2 class="mt-4">طلب عرض أسعار<span t-field="o.name"/></h2>
+
+                
+    </xpath>
+
+
+
+    <xpath expr='//div[@class="page"]/table[@class="table table-sm mt-4"]/thead/tr' position="replace">
+        <tr>
+            <th name="th_description"><strong>الوصف</strong></th>
+            <th name="th_expected_date" class="text-center"><strong>تاريخ المتوقع</strong></th>
+            <th name="th_uom_per_unit" class="text-center"><strong>الوحده</strong></th>
+            <th name="th_carton_text" class="text-center"><strong> </strong></th>
+            <th name="th_total" class="text-center"><strong>الوحده الفرعيه</strong></th>
+            <th name="th_tiles_text" class="text-center"><strong> </strong></th>
+            <th name="th_quantity" class="text-end"><strong>الكمية</strong></th>
+        </tr>
+    </xpath>
+
+
+    <xpath expr='//div[@class="page"]/table[@class="table table-sm mt-4"]/tbody' position="replace">
+        <t t-foreach="o.order_line" t-as="order_line">
+                        <tr t-att-class="'bg-200 fw-bold o_line_section' if order_line.display_type == 'line_section' else 'fst-italic o_line_note' if order_line.display_type == 'line_note' else ''">
+                            <t t-if="not order_line.display_type">
+                                <td id="product">
+                                    <span t-field="order_line.name"/>
+                                </td>
+                                <td class="text-center">
+                                    <span t-field="order_line.date_planned"/>
+                                </td>
+                                <td class="text-center">
+                                    <span t-field="order_line.uom_per_unit"/>
+                                </td>
+                                <td class="text-center">
+                                    <span t-field="order_line.carton_text"/>
+                                </td>
+                                <td class="text-center">
+                                    <span t-field="order_line.total"/>
+                                </td>
+                                <td class="text-center">
+                                    <span t-field="order_line.tiles_text"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-field="order_line.product_qty"/>
+                                    <span t-field="order_line.product_uom" groups="uom.group_uom"/>
+                                </td>
+                            </t>
+                            <t t-else="">
+                                <td colspan="99" id="section">
+                                    <span t-field="order_line.name"/>
+                                </td>
+                            </t>
+                        </tr>
+                    </t>
+    </xpath>
+    
+
+
+</template>
+
+
+
+</odoo>

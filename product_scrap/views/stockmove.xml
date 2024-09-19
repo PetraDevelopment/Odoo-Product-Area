@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stockmove_inherit" model="ir.ui.view">
+        <field name="name">stockmove.inherit</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_tree"/>
+        <field name="arch" type="xml">
+           <tree>
+
+            <field name='usage' invisible="1" />
+           <field name='priceunit'/>           
+           <field name="cal_unit" string="Primary UOM" sum="عدد الكراتين"/>
+            <field name="uom_total" string="Secondary UOM" sum="عدد البلاط"/>
+            
+           </tree>
+        </field>
+    </record>
+</odoo>
